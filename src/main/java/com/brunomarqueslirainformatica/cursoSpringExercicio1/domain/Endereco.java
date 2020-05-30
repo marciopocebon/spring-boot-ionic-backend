@@ -7,44 +7,47 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.ManyToOne;	
 
 @Entity
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
 	private String logradouro;
 	private String numero;
 	private String complemento;
-	private String cep;
+	private String bairro;
+	private String cod_postal;
+
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
+	private Cliente cliente;
 	
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
-	@ManyToOne
-	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
-	
 	public Endereco() {
 	}
 
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String cep, Cliente cliente, Cidade cidade) {
-		super();
+	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cod_postal,
+			Cliente cliente, Cidade cidade) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
-		this.cep = cep;
+		this.bairro = bairro;
+		this.cod_postal = cod_postal;
 		this.cliente = cliente;
-		this.setCidade(cidade);
+		this.cidade = cidade;
 	}
+
+	/*-----------------------------------------------------------------------------------*/
+	/* Getters and Setters */
+	/*-----------------------------------------------------------------------------------*/
 
 	public Integer getId() {
 		return id;
@@ -78,12 +81,20 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
-	public String getCep() {
-		return cep;
+	public String getBairro() {
+		return bairro;
 	}
 
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCod_postal() {
+		return cod_postal;
+	}
+
+	public void setCod_postal(String cod_postal) {
+		this.cod_postal = cod_postal;
 	}
 
 	public Cliente getCliente() {
@@ -101,7 +112,7 @@ public class Endereco implements Serializable {
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -125,5 +136,5 @@ public class Endereco implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}	
 }

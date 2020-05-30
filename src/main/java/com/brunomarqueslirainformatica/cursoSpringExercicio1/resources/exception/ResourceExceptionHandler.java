@@ -1,5 +1,7 @@
 package com.brunomarqueslirainformatica.cursoSpringExercicio1.resources.exception;
 
+import java.io.Serializable;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
-public class ResourceExceptionHandler {
+public class ResourceExceptionHandler implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){

@@ -9,24 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Categoria;
-import com.brunomarqueslirainformatica.cursoSpringExercicio1.services.CategoriaService;
+import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Cliente;
+import com.brunomarqueslirainformatica.cursoSpringExercicio1.services.ClienteService;
 
 @RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResource implements Serializable {
+@RequestMapping(value="/clientes")
+public class ClienteResource implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private CategoriaService service;
+	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		
-		
-		Categoria obj = service.find(id);
+		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
-		
 	}
 
 }
