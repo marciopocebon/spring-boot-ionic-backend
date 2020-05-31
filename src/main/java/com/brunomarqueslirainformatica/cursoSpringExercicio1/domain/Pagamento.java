@@ -2,22 +2,28 @@ package com.brunomarqueslirainformatica.cursoSpringExercicio1.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.enums.EstadoPagamento;
 
-public class  Pagamento implements Serializable {  
+@Inheritance(strategy=InheritanceType.JOINED)
+@Entity
+public abstract class Pagamento implements Serializable {  
 	private static final long serialVersionUID = 1L;    
 	
 	@Id  
 	private Integer id; 
 
 	private Integer estado;    
-	@JoinColumn(name="pedido_id")     
-	@OneToOne     
+	     
+	@OneToOne
+	@JoinColumn(name="pedido_id")
 	@MapsId     
 	private Pedido pedido; 
 	
@@ -39,12 +45,12 @@ public class  Pagamento implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getEstado() {
-		return estado;
+	public EstadoPagamento getEstado() {
+		return EstadoPagamento.toEnum(estado);
 	}
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
+	public void setEstado(EstadoPagamento estado) {
+		this.estado = estado.getCod();
 	}
 
 	public Pedido getPedido() {

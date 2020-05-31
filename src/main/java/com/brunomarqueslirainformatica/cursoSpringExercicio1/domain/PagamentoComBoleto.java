@@ -2,11 +2,13 @@ package com.brunomarqueslirainformatica.cursoSpringExercicio1.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.enums.EstadoPagamento;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;  
 	
