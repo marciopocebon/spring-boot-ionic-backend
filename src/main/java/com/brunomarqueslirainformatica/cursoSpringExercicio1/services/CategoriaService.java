@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.brunomarqueslirainformatica.cursoSpringExercicio1.services.exceptions.ObjectNotFoundException;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Categoria;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.CategoriaRepository;
+import com.brunomarqueslirainformatica.cursoSpringExercicio1.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService implements Serializable {
@@ -22,9 +22,13 @@ public class CategoriaService implements Serializable {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(), null));
 	}
-
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
 		return repo.save(obj);
 	}
 }

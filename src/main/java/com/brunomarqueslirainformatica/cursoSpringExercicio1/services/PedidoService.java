@@ -22,5 +22,14 @@ public class PedidoService implements Serializable {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName(), null));
 	}
-
+	
+	public Pedido insert(Pedido obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Pedido update(Pedido obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
 }

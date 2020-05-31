@@ -22,5 +22,14 @@ public class ClienteService implements Serializable {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName(), null));
 	}
-
+	
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Cliente update(Cliente obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
 }
