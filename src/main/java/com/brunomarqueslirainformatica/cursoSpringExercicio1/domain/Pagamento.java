@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Inheritance(strategy=InheritanceType.JOINED)
 @Entity
@@ -22,6 +23,7 @@ public abstract class Pagamento implements Serializable {
 
 	private Integer estado;    
 	     
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId     
