@@ -16,6 +16,7 @@ import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Cidade;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Cliente;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Endereco;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Estado;
+import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.ItemPedido;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.Pagamento;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.PagamentoComBoleto;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.domain.PagamentoComCartao;
@@ -28,6 +29,7 @@ import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.Cidade
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.ClienteRepository;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.EnderecoRepository;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.EstadoRepository;
+import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.ItemPedidoRepository;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.PagamentoRepository;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.PedidoRepository;
 import com.brunomarqueslirainformatica.cursoSpringExercicio1.repositories.ProdutoRepository;
@@ -53,6 +55,8 @@ public class CursoSpringExercicio1Application implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired 
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringExercicio1Application.class, args);
@@ -116,6 +120,19 @@ public class CursoSpringExercicio1Application implements CommandLineRunner {
    			cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
    			
    			pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+   			
+   			ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+   			ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+   			ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+   			
+   			ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+   			ped2.getItens().addAll(Arrays.asList(ip3));
+   			
+   			p1.getItens().add(ip1);
+   			p2.getItens().add(ip3);
+   			p3.getItens().add(ip2);
+   			
+   			itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
         }
     
     }
